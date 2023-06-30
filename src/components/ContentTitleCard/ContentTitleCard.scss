@@ -15,14 +15,28 @@
     justify-content: center;
     flex-direction: column;
 
-    .title-icon {
+    .h1 {
       font-size: 70px;
     }
 
     .title-detail {
       width: 100%;
-      height: 100px;
-      background-color: gray;
+      height: fit-content;
+      background-color: white;
+      text-align: center;
+
+      .time-and-user {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        .to-read {
+          display: flex;
+          align-items: center;
+          p {
+            padding-left: 10px;
+          }
+        }
+      }
     }
   }
 }
