@@ -1,0 +1,12 @@
+@import '../../../scss/_color';
+
+.blog-content-wrapper {
+  margin-top: 30px;
+  width: 70%;
+
+  .tag {
+    border: #d9d9d9 1px solid;
+    color: black;
+    margin: 3px 5px;
+  }
+}
