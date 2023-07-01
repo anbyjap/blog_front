@@ -2,11 +2,37 @@
 
 .blog-content-wrapper {
   margin-top: 30px;
-  width: 70%;
+  display: flex;
+  .blog-main {
+    width: 80%;
+  }
 
+  padding: 0 30px;
   .tag {
     border: #d9d9d9 1px solid;
     color: black;
     margin: 3px 5px;
+  }
+
+  .title-list {
+    background-color: $main-color;
+    height: fit-content;
+    width: 20%;
+    padding: 2%;
+    color: white;
+    position: sticky;
+    top: 20px;
+    border-radius: 40px;
+    li {
+      list-style: none;
+      font-size: 20px;
+      margin: 20px 0;
+
+      a {
+        color: white;
+        text-decoration: none;
+        margin: 20px;
+      }
+    }
   }
 }
