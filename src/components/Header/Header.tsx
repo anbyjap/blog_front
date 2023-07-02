@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { styled, alpha } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -6,6 +7,7 @@ import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
 import YennLogo from '/src/images/Yenn.svg'
 import './Header.scss'
+import { Button } from '@mui/material'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,11 +56,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 export const SearchAppBar = () => {
+  const navigate = useNavigate()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <div className='d-flex'>
-          <YennLogo height='20px' style={{ margin: 'auto 0' }} />
+          <Button disableRipple onClick={() => navigate('/')}>
+            <YennLogo height='20px' style={{ margin: 'auto 0' }} />
+          </Button>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
