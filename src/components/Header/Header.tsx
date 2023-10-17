@@ -68,7 +68,7 @@ export const SearchAppBar = () => {
     if (e.key === 'Enter') {
       e.preventDefault() // Prevent the default form submission behavior
       // Navigate to the search results page with the search query as a parameter
-      navigate(`/?query=${searchInput}`)
+      // navigate(`/?query=${searchInput}`)
     }
   }
 

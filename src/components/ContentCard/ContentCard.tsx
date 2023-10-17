@@ -4,17 +4,9 @@ import ButtonBase from '@mui/material/ButtonBase'
 import { BiTimeFive } from 'react-icons/bi'
 import { FaUserAlt } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import { Post } from '../../types/types'
 
-interface props {
-  content: {
-    icon: string
-    title: string
-    author: string
-    postAt: Date
-  }
-}
-
-export const ContentCard = (props: props) => {
+export const ContentCard = (props: Post) => {
   const navigate = useNavigate()
   return (
     <Card
@@ -38,15 +30,15 @@ export const ContentCard = (props: props) => {
             borderRadius: 30,
           }}
         >
-          <p className='title'>{props.content.title}</p>
+          <p className='title'>{props.title}</p>
           <div className='time-and-user'>
             <div className='to-read'>
               <BiTimeFive />
-              <p>{props.content.postAt.getFullYear()}</p>
+              <p>{new Date(props.published_at).getFullYear()}</p>
             </div>
             <div className='to-read'>
               <FaUserAlt />
-              <p>{props.content.author}</p>
+              <p>{props.user_id}</p>
             </div>
           </div>
         </div>
