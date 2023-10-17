@@ -1,0 +1,25 @@
+/* Add these styles to your CSS or SCSS file */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Set the container to full viewport height */
+}
+
+.header {
+  flex: 0; /* Header won't grow, stays fixed */
+  background-color: #fff; /* Adjust background color as needed */
+  /* Add other header styles */
+}
+
+.content {
+  flex: 1; /* Content area grows to fill remaining space */
+  overflow-y: auto; /* Add scroll if content overflows */
+  /* Add other content styles */
+}

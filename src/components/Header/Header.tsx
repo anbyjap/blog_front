@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { styled, alpha } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
@@ -58,6 +58,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const SearchAppBar = () => {
   const navigate = useNavigate()
 
+  const [searchInput, setSearchInput] = useState<string>()
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value)
+  }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault() // Prevent the default form submission behavior
+      // Navigate to the search results page with the search query as a parameter
+      navigate(`/?query=${searchInput}`)
+    }
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -69,7 +83,12 @@ export const SearchAppBar = () => {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
+            <StyledInputBase
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              placeholder='Search…'
+              inputProps={{ 'aria-label': 'search' }}
+            />
           </Search>
         </div>
       </AppBar>
