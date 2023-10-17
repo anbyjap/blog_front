@@ -17,20 +17,29 @@ export const ContentCard = (props: Post) => {
       }}
       style={{ display: 'flex', width: 400, height: 190 }}
     >
-      <ButtonBase onClick={() => navigate('/top')}>
+      <ButtonBase style={{ width: '100%' }} onClick={() => navigate('/top')}>
         <div style={{ display: 'flex', alignItems: 'center', fontSize: 30, padding: 30 }}>😄</div>
         <div
           style={{
             overflowWrap: 'break-word',
-            height: '50%',
-            width: '55%',
+            height: '80%',
+            width: '70%',
             backgroundColor: '#d9d9d9',
             alignSelf: 'center',
-            padding: 30,
             borderRadius: 30,
           }}
         >
-          <p className='title'>{props.title}</p>
+          <div
+            style={{
+              height: '70%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <p className='title'>{props.title}</p>
+          </div>
+
           <div className='time-and-user'>
             <div className='to-read'>
               <BiTimeFive />
