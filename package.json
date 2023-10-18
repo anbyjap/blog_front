@@ -2,7 +2,6 @@
   "name": "blog_front",
   "version": "1.0.0",
   "description": "This is the front app for my blog.",
-  "main": "index.js",
   "author": "Haruki Ambai",
   "license": "MIT",
   "dependencies": {
