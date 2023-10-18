@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { ContentTitleCard } from '../../components/ContentTitleCard/ContentTitleCard'
 import './Top.scss'
 import { BlogContent } from '../../components/BlogContent/BlogContent'

@@ -12,6 +12,8 @@
     "@mui/material": "^5.11.10",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.1.0",
+    "@vitejs/plugin-react-swc": "^3.4.0",
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
@@ -25,16 +27,15 @@
     "react-router-dom": "^6.8.1",
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.5",
+    "vite-plugin-svgr": "^4.1.0",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
   },
   "scripts": {
-    "start": "webpack serve --port 3000",
-    "build": "NODE_ENV=production webpack",
-    "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
-    "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
-    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -53,7 +54,10 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.4",
+    "sass": "^1.69.4",
     "sass-loader": "^13.2.0",
-    "style-loader": "^3.3.1"
-  }
+    "style-loader": "^3.3.1",
+    "vite": "^4.4.11"
+  },
+  "repository": "https://github.com/anbyjap/blog_front.git"
 }

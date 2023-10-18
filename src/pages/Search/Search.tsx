@@ -1,4 +1,4 @@
-import React, { useState, SyntheticEvent, useContext } from 'react'
+import { useState, SyntheticEvent, useContext } from 'react'
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import { Box, Tabs, Tab } from '@mui/material'
 import './Search.scss'
