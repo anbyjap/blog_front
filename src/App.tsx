@@ -1,6 +1,6 @@
 import { Top } from './pages/Top/Top'
 import { Route, BrowserRouter, Routes } from 'react-router-dom'
-import '../scss/__color.scss'
+import './scss/__color.scss'
 import './App.scss'
 import { Search } from './pages/Search/Search'
 import { SearchAppBar } from './components/Header/Header'

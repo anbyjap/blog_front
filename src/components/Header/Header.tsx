@@ -6,7 +6,7 @@ import AppBar from '@mui/material/AppBar'
 import './Header.scss'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
-import YennLogo from '../../images/yenn.svg'
+import YennLogo from '/src/images/yenn.svg'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
