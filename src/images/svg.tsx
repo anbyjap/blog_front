@@ -1,3 +1,3 @@
-import { ReactComponent as YennLogo } from '../images/yenn.svg'
+import { ReactComponent as YennLogo } from 'src/images/yenn.svg'
 
 export default YennLogo
