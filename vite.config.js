@@ -17,10 +17,10 @@ export default {
     jsxInject: 'import React from "react"',
   },
 
-  define: {
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    'process.env': JSON.stringify(process.env),
-  },
+  // define: {
+  //   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+  //   'process.env': JSON.stringify(process.env),
+  // },
 
   // Additional configuration can go here...
 }
