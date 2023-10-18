@@ -76,8 +76,8 @@ export const SearchAppBar = () => {
       <AppBar position='static'>
         <div className='d-flex'>
           <Button disableRipple onClick={() => navigate('/')}>
-            {/* <YennLogo height='20px' style={{ margin: 'auto 0' }} /> */}
-            <img src={YennLogo} alt='Yenn Logo' style={{ margin: 'auto 0', height: 20 }} />
+            <YennLogo height='20px' style={{ margin: 'auto 0' }} />
+            {/* <img src={YennLogo} alt='Yenn Logo' style={{ margin: 'auto 0', height: 20 }} /> */}
           </Button>
           <Search>
             <SearchIconWrapper>
