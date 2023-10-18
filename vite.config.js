@@ -19,7 +19,7 @@ export default {
 
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    // ... other constants
+    'process.env': JSON.stringify(process.env),
   },
 
   // Additional configuration can go here...

@@ -10,13 +10,12 @@ export const Search = () => {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
   const query = searchParams.get('query')
+  const apiURL = import.meta.env.VITE_API_URL
 
   const [tabIndex, setTabIndex] = useState(0)
   const handleChange = (_: SyntheticEvent<Element, Event>, value: string) => {
     setTabIndex(Number(value))
   }
-
-  const apiURL = process.env.REACT_APP_API_URL
 
   const {
     isLoading,
