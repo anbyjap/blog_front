@@ -6,9 +6,4 @@ import svgr from '@svgr/rollup'
 export default defineConfig({
   base: './',
   plugins: [react(), svgr()],
-  build: {
-    rollupOptions: {
-      external: ['/src/images/yenn.svg'],
-    },
-  },
 })
