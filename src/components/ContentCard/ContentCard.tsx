@@ -1,13 +1,13 @@
 // import React from 'react'
-import { Card } from '@mui/material'
-import ButtonBase from '@mui/material/ButtonBase'
-import { BiTimeFive } from 'react-icons/bi'
-import { FaUserAlt } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
-import { Post } from '../../types/types'
+import { Card } from '@mui/material';
+import ButtonBase from '@mui/material/ButtonBase';
+import { BiTimeFive } from 'react-icons/bi';
+import { FaUserAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { Post } from '../../types/types';
 
 export const ContentCard = (props: Post) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <Card
       sx={{
@@ -53,5 +53,5 @@ export const ContentCard = (props: Post) => {
         </div>
       </ButtonBase>
     </Card>
-  )
-}
+  );
+};

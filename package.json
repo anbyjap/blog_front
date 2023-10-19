@@ -25,6 +25,7 @@
     "react-markdown": "^8.0.7",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.8.1",
+    "react-svg-loader": "^3.0.3",
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.5",
     "vite-plugin-svgr": "^4.1.0",
@@ -34,7 +35,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "devDependencies": {
@@ -58,7 +59,7 @@
     "sass": "^1.69.4",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
-    "vite": "^4.4.11"
+    "vite": "^4.5.0"
   },
   "repository": "https://github.com/anbyjap/blog_front.git"
 }

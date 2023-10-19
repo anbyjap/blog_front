@@ -1,7 +1,7 @@
 // import React from 'react'
-import { ContentTitleCard } from '../../components/ContentTitleCard/ContentTitleCard'
-import './Top.scss'
-import { BlogContent } from '../../components/BlogContent/BlogContent'
+import { ContentTitleCard } from '../../components/ContentTitleCard/ContentTitleCard';
+import './Top.scss';
+import { BlogContent } from '../../components/BlogContent/BlogContent';
 
 export const Top = () => {
   return (
@@ -13,5 +13,5 @@ export const Top = () => {
         <BlogContent />
       </div>
     </div>
-  )
-}
+  );
+};

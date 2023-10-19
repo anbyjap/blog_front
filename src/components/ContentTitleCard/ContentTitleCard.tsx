@@ -1,8 +1,8 @@
 // import React from 'react'
-import { Box } from '@mui/system'
-import { BiTimeFive } from 'react-icons/bi'
-import { FaUserAlt } from 'react-icons/fa'
-import './ContentTitleCard.scss'
+import { Box } from '@mui/system';
+import { BiTimeFive } from 'react-icons/bi';
+import { FaUserAlt } from 'react-icons/fa';
+import './ContentTitleCard.scss';
 
 export const ContentTitleCard = () => {
   return (
@@ -24,5 +24,5 @@ export const ContentTitleCard = () => {
         </div>
       </Box>
     </Box>
-  )
-}
+  );
+};

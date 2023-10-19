@@ -1,21 +1,21 @@
-import { useState, SyntheticEvent, useContext } from 'react'
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
-import { Box, Tabs, Tab } from '@mui/material'
-import './Search.scss'
-import { ContentCard } from '../../components/ContentCard/ContentCard'
-import { useLocation } from 'react-router-dom'
-import { Post } from '../../types/types'
+import { useState, SyntheticEvent, useContext } from 'react';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { Box, Tabs, Tab } from '@mui/material';
+import './Search.scss';
+import { ContentCard } from '../../components/ContentCard/ContentCard';
+import { useLocation } from 'react-router-dom';
+import { Post } from '../../types/types';
 
 export const Search = () => {
-  const location = useLocation()
-  const searchParams = new URLSearchParams(location.search)
-  const query = searchParams.get('query')
-  const apiURL = import.meta.env.VITE_API_URL
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const query = searchParams.get('query');
+  const apiURL = import.meta.env.VITE_API_URL;
 
-  const [tabIndex, setTabIndex] = useState(0)
+  const [tabIndex, setTabIndex] = useState(0);
   const handleChange = (_: SyntheticEvent<Element, Event>, value: string) => {
-    setTabIndex(Number(value))
-  }
+    setTabIndex(Number(value));
+  };
 
   const {
     isLoading,
@@ -34,7 +34,7 @@ export const Search = () => {
       // refetchOnReconnect: false, // Disable automatic refetch on network reconnect
       // Add other query options as needed
     },
-  )
+  );
 
   return (
     <div className='top-wrapper'>
@@ -66,5 +66,5 @@ export const Search = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

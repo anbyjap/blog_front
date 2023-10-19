@@ -1,8 +1,8 @@
 // import React from 'react'
-import { Box } from '@mui/system'
-import './BlogContent.scss'
-import { Avatar, Button } from '@mui/material'
-import ReactMarkdown from 'react-markdown'
+import { Box } from '@mui/system';
+import './BlogContent.scss';
+import { Avatar, Button } from '@mui/material';
+import ReactMarkdown from 'react-markdown';
 
 export const BlogContent = () => {
   const markdownString = `
@@ -65,7 +65,7 @@ dsadsdasddas
 
 
 dsadsdadsa
-`
+`;
 
   return (
     <Box className='blog-content-wrapper'>
@@ -108,5 +108,5 @@ dsadsdadsa
           ))}
       </Box>
     </Box>
-  )
-}
+  );
+};

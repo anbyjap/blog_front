@@ -1,12 +1,13 @@
-import { Button, Box } from '@mui/material'
-import { ChangeEvent, KeyboardEvent, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { styled, alpha } from '@mui/material/styles'
-import AppBar from '@mui/material/AppBar'
-import './Header.scss'
-import InputBase from '@mui/material/InputBase'
-import SearchIcon from '@mui/icons-material/Search'
-import YennLogo from '../../images/svg'
+import { Button, Box } from '@mui/material';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { styled, alpha } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import './Header.scss';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+// import YennLogo from '../../images/svg
+import { ReactComponent as YennLogo } from '@/images/Yenn.svg';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -23,7 +24,7 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(1),
     width: 'auto',
   },
-}))
+}));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -34,7 +35,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   color: 'black',
-}))
+}));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'gray',
@@ -52,24 +53,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       },
     },
   },
-}))
+}));
 
 export const SearchAppBar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [searchInput, setSearchInput] = useState<string>()
+  const [searchInput, setSearchInput] = useState<string>();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value)
-  }
+    setSearchInput(e.target.value);
+  };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      e.preventDefault() // Prevent the default form submission behavior
+      e.preventDefault(); // Prevent the default form submission behavior
       // Navigate to the search results page with the search query as a parameter
       // navigate(`/?query=${searchInput}`)
     }
-  }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -93,5 +94,5 @@ export const SearchAppBar = () => {
         </div>
       </AppBar>
     </Box>
-  )
-}
+  );
+};
