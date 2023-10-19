@@ -6,7 +6,6 @@ import AppBar from '@mui/material/AppBar';
 import './Header.scss';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-// import YennLogo from '../../images/svg
 import { ReactComponent as YennLogo } from '@/images/Yenn.svg';
 
 const Search = styled('div')(({ theme }) => ({
@@ -78,7 +77,6 @@ export const SearchAppBar = () => {
         <div className='d-flex'>
           <Button disableRipple onClick={() => navigate('/')}>
             <YennLogo height='20px' style={{ margin: 'auto 0' }} />
-            {/* <img src={YennLogo} alt='Yenn Logo' style={{ margin: 'auto 0', height: 20 }} /> */}
           </Button>
           <Search>
             <SearchIconWrapper>
