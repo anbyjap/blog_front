@@ -36,6 +36,8 @@ export const Search = () => {
     },
   );
 
+  console.log(allPosts);
+
   return (
     <div className='top-wrapper'>
       <div className='title-content-card'>

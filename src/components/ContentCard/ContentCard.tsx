@@ -6,6 +6,21 @@ import { FaUserAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Post } from '../../types/types';
 
+function daysAgo(date: Date | string): string {
+  const now = new Date();
+  const then = new Date(date);
+  const diffTime = Math.abs(now.getTime() - then.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) {
+    return 'today';
+  } else if (diffDays === 1) {
+    return '1 day ago';
+  } else {
+    return `${diffDays} days ago`;
+  }
+}
+
 export const ContentCard = (props: Post) => {
   const navigate = useNavigate();
   return (
@@ -17,7 +32,10 @@ export const ContentCard = (props: Post) => {
       }}
       style={{ display: 'flex', width: 400, height: 190 }}
     >
-      <ButtonBase style={{ width: '100%' }} onClick={() => navigate('/top')}>
+      <ButtonBase
+        style={{ width: '100%' }}
+        onClick={() => navigate('/top', { state: { post: props } })}
+      >
         <div style={{ display: 'flex', alignItems: 'center', fontSize: 30, padding: 30 }}>😄</div>
         <div
           style={{
@@ -43,11 +61,11 @@ export const ContentCard = (props: Post) => {
           <div className='time-and-user'>
             <div className='to-read'>
               <BiTimeFive />
-              <p>{new Date(props.published_at).getFullYear()}</p>
+              <p>{daysAgo(new Date(props.created_at))}</p>
             </div>
             <div className='to-read'>
               <FaUserAlt />
-              <p>{props.user_id}</p>
+              <p>{props.username}</p>
             </div>
           </div>
         </div>

@@ -4,7 +4,11 @@ import './BlogContent.scss';
 import { Avatar, Button } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 
-export const BlogContent = () => {
+interface props {
+  content: string;
+}
+
+export const BlogContent = (props: props) => {
   const markdownString = `
 # TeX
 
@@ -94,11 +98,11 @@ dsadsdadsa
             h1: ({ children }) => <h1 id={children[0]?.toString()}>{children[0]}</h1>,
           }}
         >
-          {markdownString}
+          {props.content}
         </ReactMarkdown>
       </div>
       <Box className='title-list'>
-        {markdownString
+        {props.content
           .split('\n')
           .filter((line) => line.startsWith('#'))
           .map((title, index) => (
