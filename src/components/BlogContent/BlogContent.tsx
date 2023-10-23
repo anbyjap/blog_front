@@ -4,94 +4,30 @@ import './BlogContent.scss';
 import { Avatar, Button } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 
+interface tag {
+  url: string;
+  tag_name: string;
+}
+
 interface props {
+  tag_urls: tag[] | null;
   content: string;
 }
 
 export const BlogContent = (props: props) => {
-  const markdownString = `
-# TeX
-
-x^2 + y^2 = 1 をインライン表示すると $x^2 + y^2 = 1$ になります。
-
-$$ S=\\sum_{n=1}^\\infty a_n $$
-
-$$\\frac{1}{2} $$
-
-# dsadasdsd
-
-
-dsadfjk iofewsfjdisjfaklfjd
-
-
-dsakd;lskd;ak;
-
-dsadsdsadsa
-
-# cdasdsa
-
-#  ddd
-
-dsadsdasddas
-dsadsdasddas
-dsadsdasddas
-dsadsdasddas
-
-dsadsdasddas
-dsadsdasddas
-
-dsadsdasddas
-dsadsdasddas
-
-dsadsdasddas
-dsadsdasddas
-
-dsadsdasddas
-dsadsdasddas
-dsadsdasddas
-dsadsdasddas
-
-
-dsadsdasddas
-
-dsadsdasddas
-
-dsadsdasddas
-
-dsadsdasddas
-
-dsadsdasddas
-dsadsdasddas
-
-
-
-
-
-
-dsadsdadsa
-`;
-
   return (
     <Box className='blog-content-wrapper'>
       <div className='blog-main'>
         <Box className='taglist'>
-          {Array(10)
-            .fill(0)
-            .map((key) => (
-              <Button
-                key={key}
-                className='tag'
-                startIcon={
-                  <Avatar
-                    src={
-                      'http://www.wpsimplesponsorships.com/wp-content/uploads/2019/05/cropped-icon-256x256.png'
-                    }
-                  />
-                }
-              >
-                aaa
-              </Button>
-            ))}
+          {props.tag_urls?.map((tag) => (
+            <Button
+              key={tag.tag_name}
+              className='tag'
+              startIcon={<img alt={tag.tag_name} src={tag.url} style={{ width: 30, height: 30 }} />}
+            >
+              {tag.tag_name}
+            </Button>
+          ))}
         </Box>
         <ReactMarkdown
           components={{

@@ -14,7 +14,7 @@ export const Top = () => {
         <ContentTitleCard username={postData.username} title={postData.title} />
       </div>
       <div>
-        <BlogContent content={postData.content} />
+        <BlogContent tag_urls={postData.tag_urls} content={postData.content} />
       </div>
     </div>
   );
