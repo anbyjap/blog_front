@@ -1,42 +1,43 @@
-import { useState, SyntheticEvent, useContext } from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { useState, SyntheticEvent, useContext, useEffect } from 'react';
+import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from 'react-query';
 import { Box, Tabs, Tab } from '@mui/material';
 import './Search.scss';
 import { ContentCard } from '../../components/ContentCard/ContentCard';
-import { useLocation } from 'react-router-dom';
-import { Post } from '../../types/types';
+import { GlobalProps, Post } from '../../types/types';
 
-export const Search = () => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const query = searchParams.get('query');
+const categoryList = ['tech', 'idea'];
+
+export const Search = (props: GlobalProps) => {
   const apiURL = import.meta.env.VITE_API_URL;
-
-  const [tabIndex, setTabIndex] = useState(0);
-  const handleChange = (_: SyntheticEvent<Element, Event>, value: string) => {
-    setTabIndex(Number(value));
-  };
 
   const {
     isLoading,
     error,
     data: allPosts,
+    refetch,
   } = useQuery<Post[]>(
-    'allPosts',
-    () =>
-      fetch(`${apiURL}/posts/`)
+    ['allPosts', props.tabIndex, props.keyword],
+    () => {
+      // Construct the URL considering both category and keyword
+      const url = `${apiURL}/posts/?${
+        props.keyword
+          ? `keyword=${props.keyword}`
+          : `category=${categoryList[props.tabIndex ? props.tabIndex : 0]}`
+      }`;
+
+      return fetch(url)
         .then((res) => res.json())
-        .then((data: Post[]) => data),
+        .then((data: Post[]) => data);
+    },
     {
-      // Example: Invalidate query when someData changes
       refetchOnWindowFocus: false, // Disable automatic refetch on window focus
-      // refetchOnMount: false, // Disable automatic refetch on component mount
-      // refetchOnReconnect: false, // Disable automatic refetch on network reconnect
-      // Add other query options as needed
     },
   );
 
-  console.log(allPosts);
+  const handleChange = (_: SyntheticEvent<Element, Event>, value: string) => {
+    props.setKeyword();
+    props.setTabIndex(Number(value));
+  };
 
   return (
     <div className='top-wrapper'>
@@ -46,7 +47,7 @@ export const Search = () => {
             TabIndicatorProps={{ style: { background: 'black' } }}
             textColor='inherit'
             sx={{ fontWeight: '900' }}
-            value={tabIndex}
+            value={props.tabIndex}
             onChange={handleChange}
             aria-label='basic tabs example'
           >
@@ -55,11 +56,11 @@ export const Search = () => {
           </Tabs>
         </Box>
         <div className='content-card-list'>
-          {query && <h2 style={{ margin: 0 }}>Search Results for: {query}</h2>}
+          {props.keyword && <h2 style={{ margin: 0 }}>Search Results for: {props.keyword}</h2>}
           <div className='grid-system'>
             {isLoading ? (
               <h1>Loading....</h1>
-            ) : tabIndex === 0 ? (
+            ) : allPosts && allPosts?.length > 0 ? (
               allPosts?.map((post, key) => <ContentCard {...post} key={key} />)
             ) : (
               <h1>There is no centents to show.</h1>

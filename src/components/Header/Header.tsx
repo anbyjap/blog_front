@@ -7,6 +7,7 @@ import './Header.scss';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { ReactComponent as YennLogo } from '@/images/Yenn.svg';
+import { GlobalProps } from '../../types/types';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export const SearchAppBar = () => {
+export const SearchAppBar = (props: GlobalProps) => {
   const navigate = useNavigate();
 
   const [searchInput, setSearchInput] = useState<string>();
@@ -67,7 +68,9 @@ export const SearchAppBar = () => {
     if (e.key === 'Enter') {
       e.preventDefault(); // Prevent the default form submission behavior
       // Navigate to the search results page with the search query as a parameter
-      // navigate(`/?query=${searchInput}`)
+      props.setTabIndex(-1);
+      props.setKeyword(searchInput);
+      navigate('/');
     }
   };
 

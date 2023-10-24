@@ -7,7 +7,6 @@ import { BlogContent } from '../../components/BlogContent/BlogContent';
 export const Top = () => {
   const location = useLocation();
   const postData = location.state?.post;
-  console.log(postData);
   return (
     <div className='top-wrapper'>
       <div className='title-content-card'>

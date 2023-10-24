@@ -14,3 +14,10 @@ export interface Post {
   updated_at: string;
   published_at: string;
 }
+
+export interface GlobalProps {
+  keyword: string | undefined;
+  setKeyword: (a?: string) => void;
+  tabIndex: number;
+  setTabIndex: (a: number) => void;
+}

@@ -5,21 +5,40 @@ import './App.scss';
 import { Search } from './pages/Search/Search';
 import { SearchAppBar } from './components/Header/Header';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useState } from 'react';
 
 const queryClient = new QueryClient();
 
 export const App = () => {
+  const [keyword, setKeyword] = useState<string>();
+  const [tabIndex, setTabIndex] = useState<number>(0);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <div className='app-container'>
           <div className='header'>
-            <SearchAppBar />
+            <SearchAppBar
+              keyword={keyword}
+              setKeyword={setKeyword}
+              tabIndex={tabIndex}
+              setTabIndex={setTabIndex}
+            />
           </div>
           <div className='content'>
             <Routes>
               <Route path='/top' element={<Top />} />
-              <Route path='/' element={<Search />} />
+              <Route
+                path='/'
+                element={
+                  <Search
+                    keyword={keyword}
+                    setKeyword={setKeyword}
+                    tabIndex={tabIndex}
+                    setTabIndex={setTabIndex}
+                  />
+                }
+              />
             </Routes>
           </div>
         </div>
