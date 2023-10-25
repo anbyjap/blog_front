@@ -18,16 +18,19 @@
       background-color: #bcb3e1;
       width: 100%;
       flex: 1; /* Make this section fill the remaining height */
-
-      .grid-system {
-        flex: 1; /* Make this section fill the remaining height */
-        padding-top: 30px;
-        width: fit-content;
-        display: grid;
-        grid-template-rows: repeat(3, 1fr);
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+      .search-result {
         margin: 0 auto;
+        width: 70%;
+        padding-top: 30px;
+        .grid-system {
+          flex: 1; /* Make this section fill the remaining height */
+          width: fit-content;
+          display: grid;
+          padding: 30px 0;
+          grid-template-rows: repeat(3, 1fr);
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
       }
     }
   }

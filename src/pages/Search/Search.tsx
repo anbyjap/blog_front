@@ -78,15 +78,18 @@ export const Search = (props: GlobalProps) => {
         </Box>
         <div className='content-card-list'>
           {props.keyword && <h2 style={{ margin: 0 }}>Search Results for: {props.keyword}</h2>}
-          {props.tagId && !isTagLoading && tagData && <TagButton disable {...tagData} />}
-          <div className='grid-system'>
-            {isLoading ? (
-              <h1>Loading....</h1>
-            ) : allPosts && allPosts?.length > 0 ? (
-              allPosts.map((post) => <ContentCard {...post} key={post.post_id} />)
-            ) : (
-              <h1>There is no centents to show.</h1>
-            )}
+          <div className='search-result'>
+            {props.tagId && !isTagLoading && tagData && <TagButton disable {...tagData} />}
+
+            <div className='grid-system'>
+              {isLoading ? (
+                <h1>Loading....</h1>
+              ) : allPosts && allPosts?.length > 0 ? (
+                allPosts.map((post) => <ContentCard {...post} key={post.post_id} />)
+              ) : (
+                <h1>There is no centents to show.</h1>
+              )}
+            </div>
           </div>
         </div>
       </div>
