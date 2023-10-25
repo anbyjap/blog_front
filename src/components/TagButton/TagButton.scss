@@ -1,0 +1,13 @@
+.tag {
+  border: #d9d9d9 1px solid;
+  background-color: #d9d9d9;
+  color: black;
+  margin: 3px 5px;
+  width: 150px;
+  height: 50px;
+}
+
+.tag.Mui-disabled {
+  color: black !important; // you can replace 'inherit' with any desired color
+  // opacity: 0.5; // you can adjust the opacity as needed
+}

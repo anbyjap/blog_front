@@ -3,7 +3,8 @@ import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from 'reac
 import { Box, Tabs, Tab } from '@mui/material';
 import './Search.scss';
 import { ContentCard } from '../../components/ContentCard/ContentCard';
-import { GlobalProps, Post } from '../../types/types';
+import { GlobalProps, Post, Tag } from '../../types/types';
+import { TagButton } from '../../components/TagButton/TagButton';
 
 const categoryList = ['tech', 'idea'];
 
@@ -14,16 +15,18 @@ export const Search = (props: GlobalProps) => {
     isLoading,
     error,
     data: allPosts,
-    refetch,
   } = useQuery<Post[]>(
-    ['allPosts', props.tabIndex, props.keyword],
+    ['allPosts', props.tabIndex, props.keyword, props.tagId],
     () => {
-      // Construct the URL considering both category and keyword
-      const url = `${apiURL}/posts/?${
-        props.keyword
-          ? `keyword=${props.keyword}`
-          : `category=${categoryList[props.tabIndex ? props.tabIndex : 0]}`
-      }`;
+      let url = `${apiURL}/posts/?`;
+
+      if (props.keyword) {
+        url = `${url}keyword=${props.keyword}`;
+      } else if (props.tagId) {
+        url = `${url}tag_id=${props.tagId}`;
+      } else {
+        url = `${url}category=${categoryList[props.tabIndex ? props.tabIndex : 0]}`;
+      }
 
       return fetch(url)
         .then((res) => res.json())
@@ -34,8 +37,26 @@ export const Search = (props: GlobalProps) => {
     },
   );
 
+  const {
+    isLoading: isTagLoading,
+    error: tagError,
+    data: tagData,
+  } = useQuery<Tag>(
+    ['tag', props.tagId],
+    () =>
+      fetch(`${apiURL}/tags/${props.tagId}`)
+        .then((res) => res.json())
+        .then((data: Tag) => data),
+    {
+      refetchOnWindowFocus: false, // Disable automatic refetch on window focus
+    },
+  );
+
+  console.log(tagData);
+
   const handleChange = (_: SyntheticEvent<Element, Event>, value: string) => {
     props.setKeyword();
+    props.setTagId();
     props.setTabIndex(Number(value));
   };
 
@@ -57,11 +78,12 @@ export const Search = (props: GlobalProps) => {
         </Box>
         <div className='content-card-list'>
           {props.keyword && <h2 style={{ margin: 0 }}>Search Results for: {props.keyword}</h2>}
+          {props.tagId && !isTagLoading && tagData && <TagButton disable {...tagData} />}
           <div className='grid-system'>
             {isLoading ? (
               <h1>Loading....</h1>
             ) : allPosts && allPosts?.length > 0 ? (
-              allPosts?.map((post, key) => <ContentCard {...post} key={key} />)
+              allPosts.map((post) => <ContentCard {...post} key={post.post_id} />)
             ) : (
               <h1>There is no centents to show.</h1>
             )}

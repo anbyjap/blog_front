@@ -12,6 +12,14 @@ const queryClient = new QueryClient();
 export const App = () => {
   const [keyword, setKeyword] = useState<string>();
   const [tabIndex, setTabIndex] = useState<number>(0);
+  const [tagId, setTagId] = useState<string>();
+
+  const handleTagClick = (tagId: string) => {
+    console.log(tagId);
+    setKeyword(undefined);
+    setTabIndex(-1);
+    setTagId(tagId);
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -23,11 +31,13 @@ export const App = () => {
               setKeyword={setKeyword}
               tabIndex={tabIndex}
               setTabIndex={setTabIndex}
+              tagId={tagId}
+              setTagId={setTagId}
             />
           </div>
           <div className='content'>
             <Routes>
-              <Route path='/top' element={<Top />} />
+              <Route path='/top' element={<Top handleTagClick={handleTagClick} />} />
               <Route
                 path='/'
                 element={
@@ -36,6 +46,8 @@ export const App = () => {
                     setKeyword={setKeyword}
                     tabIndex={tabIndex}
                     setTabIndex={setTabIndex}
+                    tagId={tagId}
+                    setTagId={setTagId}
                   />
                 }
               />

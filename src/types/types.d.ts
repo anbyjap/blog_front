@@ -20,4 +20,12 @@ export interface GlobalProps {
   setKeyword: (a?: string) => void;
   tabIndex: number;
   setTabIndex: (a: number) => void;
+  tagId: string | undefined;
+  setTagId: (a?: string) => void;
+}
+
+export interface Tag {
+  tag_id: string;
+  tag_name: string;
+  url: str;
 }

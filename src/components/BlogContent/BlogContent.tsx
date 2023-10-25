@@ -1,10 +1,11 @@
 // import React from 'react'
 import { Box } from '@mui/system';
 import './BlogContent.scss';
-import { Avatar, Button } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
+import { TagButton } from '../TagButton/TagButton';
 
 interface tag {
+  tag_id: string;
   url: string;
   tag_name: string;
 }
@@ -12,6 +13,7 @@ interface tag {
 interface props {
   tag_urls: tag[] | null;
   content: string;
+  handleTagClick: (value: string) => void;
 }
 
 export const BlogContent = (props: props) => {
@@ -20,13 +22,7 @@ export const BlogContent = (props: props) => {
       <div className='blog-main'>
         <Box className='taglist'>
           {props.tag_urls?.map((tag) => (
-            <Button
-              key={tag.tag_name}
-              className='tag'
-              startIcon={<img alt={tag.tag_name} src={tag.url} style={{ width: 30, height: 30 }} />}
-            >
-              {tag.tag_name}
-            </Button>
+            <TagButton key={tag.tag_id} {...tag} handleTagClick={props.handleTagClick} />
           ))}
         </Box>
         <ReactMarkdown
