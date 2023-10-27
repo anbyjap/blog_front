@@ -15,7 +15,7 @@ export const ContentTitleCard = (props: props) => {
       <Box className='title-content'>
         <h1>😀</h1>
         <div className='title-detail'>
-          <h1>{props.title}</h1>
+          <h1>{props?.title}</h1>
           <div className='time-and-user'>
             <div className='to-read'>
               <BiTimeFive />
@@ -23,7 +23,7 @@ export const ContentTitleCard = (props: props) => {
             </div>
             <div className='to-read'>
               <FaUserAlt />
-              <p>{props.username}</p>
+              <p>{props?.username}</p>
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { Search } from './pages/Search/Search';
 import { SearchAppBar } from './components/Header/Header';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
+import { Post } from './types/types';
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ export const App = () => {
   const [keyword, setKeyword] = useState<string>();
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [tagId, setTagId] = useState<string>();
+  const [currentPost, setCurrentPost] = useState<Post>();
 
   const handleTagClick = (tagId: string) => {
     console.log(tagId);
@@ -37,11 +39,15 @@ export const App = () => {
           </div>
           <div className='content'>
             <Routes>
-              <Route path='/top' element={<Top handleTagClick={handleTagClick} />} />
+              <Route
+                path='/top'
+                element={<Top currentPost={currentPost} handleTagClick={handleTagClick} />}
+              />
               <Route
                 path='/'
                 element={
                   <Search
+                    setCurrentPost={setCurrentPost}
                     keyword={keyword}
                     setKeyword={setKeyword}
                     tabIndex={tabIndex}

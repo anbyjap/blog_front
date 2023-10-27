@@ -13,6 +13,7 @@ export interface Post {
   created_at: string;
   updated_at: string;
   published_at: string;
+  tag_urls: Tag[];
 }
 
 export interface GlobalProps {
@@ -22,10 +23,24 @@ export interface GlobalProps {
   setTabIndex: (a: number) => void;
   tagId: string | undefined;
   setTagId: (a?: string) => void;
+  setCurrentPost: (a?: Post) => void;
 }
 
 export interface Tag {
   tag_id: string;
   tag_name: string;
   url: str;
+}
+
+export interface fetchPostValues {
+  apiURL: string;
+  keyword?: string;
+  tagId?: string;
+  tabIndex?: number;
+  categoryList: string[];
+}
+
+export interface fetchTagsValues {
+  apiURL: string;
+  tagId?: string;
 }

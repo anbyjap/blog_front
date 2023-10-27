@@ -21,8 +21,13 @@ function daysAgo(date: Date | string): string {
   }
 }
 
-export const ContentCard = (props: Post) => {
+interface props extends Post {
+  setCurrentPost: (a: Post) => void;
+}
+
+export const ContentCard = (props: props) => {
   const navigate = useNavigate();
+
   return (
     <Card
       sx={{
@@ -34,7 +39,11 @@ export const ContentCard = (props: Post) => {
     >
       <ButtonBase
         style={{ width: '100%' }}
-        onClick={() => navigate('/top', { state: { post: props } })}
+        onClick={() => {
+          navigate('/top');
+          const { setCurrentPost, ...rest } = props;
+          props.setCurrentPost({ ...rest });
+        }}
       >
         <div style={{ display: 'flex', alignItems: 'center', fontSize: 30, padding: 30 }}>😄</div>
         <div
