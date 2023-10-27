@@ -1,5 +1,5 @@
-import { useState, SyntheticEvent, useContext, useEffect } from 'react';
-import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from 'react-query';
+import { SyntheticEvent } from 'react';
+import { useQuery } from 'react-query';
 import { Box, Tabs, Tab } from '@mui/material';
 import './Search.scss';
 import { ContentCard } from '../../components/ContentCard/ContentCard';

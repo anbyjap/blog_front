@@ -13,23 +13,37 @@
     flex: 1; /* Make this section fill the remaining height */
     display: flex;
     flex-direction: column;
-
     .content-card-list {
       background-color: #bcb3e1;
       width: 100%;
+      display: flex;
+      justify-content: center;
       flex: 1; /* Make this section fill the remaining height */
+
       .search-result {
-        margin: 0 auto;
-        width: 70%;
-        padding-top: 30px;
+        padding-top: 15px;
+        flex-direction: column;
+
         .grid-system {
+          padding-top: 30px;
           flex: 1; /* Make this section fill the remaining height */
           width: fit-content;
           display: grid;
-          padding: 30px 0;
-          grid-template-rows: repeat(3, 1fr);
-          grid-template-columns: repeat(2, 1fr);
-          gap: 10px;
+          grid-template-rows: repeat(3, 190px);
+          grid-template-columns: repeat(2, 400px);
+          gap: 30px;
+        }
+
+        @media (max-width: 841px) {
+          .grid-system {
+            padding-top: 30px;
+            flex: 1; /* Make this section fill the remaining height */
+            width: fit-content;
+            display: grid;
+            // grid-template-rows: repeat(1, 190px);
+            grid-template-columns: repeat(1, 1fr);
+            gap: 10px;
+          }
         }
       }
     }
