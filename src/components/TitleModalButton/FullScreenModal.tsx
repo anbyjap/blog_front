@@ -47,8 +47,9 @@ export default function FullScreenDialog(props: props) {
           color: 'black', // Replace with the color you want for text and icon
           borderColor: 'transparent', // Replace with the border color you want
           '&:hover': {
-            borderColor: 'desiredHoverBorderColor', // Replace with the border color on hover
-            backgroundColor: 'desiredHoverBackgroundColor', // Optional: Replace with the background color on hover
+            color: 'white', // Replace with the color you want for text and icon
+            borderColor: mainColor, // Replace with the border color on hover
+            backgroundColor: mainColor, // Optional: Replace with the background color on hover
           },
           '& .MuiSvgIcon-root': {
             // Targeting the icon specifically

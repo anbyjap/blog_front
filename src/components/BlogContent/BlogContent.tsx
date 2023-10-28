@@ -4,7 +4,6 @@ import './BlogContent.scss';
 import ReactMarkdown from 'react-markdown';
 import { TagButton } from '../TagButton/TagButton';
 import { PostContent } from '../../types/types';
-import FullScreenDialog from '../TitleModalButton/FullScreenModal';
 import { TitleList } from '../TitleList';
 
 interface props extends PostContent {

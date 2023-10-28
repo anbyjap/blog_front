@@ -5,13 +5,6 @@ interface props {
   handleClose?: () => void;
 }
 
-const makeTitleShoter = (title: string): string => {
-  if (title.length > 10) {
-    return `${title.slice(0, 10)}...`;
-  }
-  return title;
-};
-
 export const TitleList = (props: props) =>
   props.content
     .split('\n')
@@ -26,12 +19,14 @@ export const TitleList = (props: props) =>
               <a
                 href={currentUrl.href}
                 style={{
+                  textDecoration: 'none',
+                  color: 'black',
                   display: 'block', // Ensure the anchor tag behaves like a block element
                   whiteSpace: 'normal', // Allow wrapping of text
                   wordBreak: 'break-word', // Break words to prevent overflow
                 }}
               >
-                {makeTitleShoter(title.replace('# ', ''))}
+                {title.replace('# ', '')}
               </a>
             </ListItemText>
           </ListItem>
