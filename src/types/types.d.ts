@@ -28,6 +28,7 @@ export interface GlobalProps {
   tagId: string | undefined;
   setTagId: (a?: string) => void;
   setCurrentPost?: (a?: PostCard) => void;
+  postContent?: string;
 }
 
 export interface Tag {
@@ -39,6 +40,7 @@ export interface Tag {
 export interface fetchPostValues {
   username: string;
   slug: string;
+  setPostContent: (a: string) => void;
 }
 
 export interface fetchAllPostsValues {

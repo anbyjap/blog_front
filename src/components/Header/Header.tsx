@@ -8,6 +8,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { ReactComponent as YennLogo } from '@/images/Yenn.svg';
 import { GlobalProps } from '../../types/types';
+import FullScreenDialog from '../TitleModalButton/FullScreenModal';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -92,6 +93,11 @@ export const SearchAppBar = (props: GlobalProps) => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          {props.postContent && (
+            <div className='titleButton'>
+              <FullScreenDialog postContent={props.postContent} />
+            </div>
+          )}
         </div>
       </AppBar>
     </Box>

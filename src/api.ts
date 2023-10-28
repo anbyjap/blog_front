@@ -16,7 +16,10 @@ export const fetchPost = (vals: fetchPostValues) =>
     headers: { 'X-API-KEY': API_KEY },
   })
     .then((res) => res.json())
-    .then((data: PostContent) => data);
+    .then((data: PostContent) => {
+      vals.setPostContent(data.content);
+      return data;
+    });
 
 export const fetchAllPosts = (vals: fetchAllPostsValues) => {
   let url = `${API_URL}/posts/?`;

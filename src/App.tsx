@@ -14,6 +14,8 @@ export const App = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [tagId, setTagId] = useState<string>();
 
+  const [postContent, setPostContent] = useState<string>();
+
   const handleTagClick = (tagId: string) => {
     console.log(tagId);
     setKeyword(undefined);
@@ -33,13 +35,14 @@ export const App = () => {
               setTabIndex={setTabIndex}
               tagId={tagId}
               setTagId={setTagId}
+              postContent={postContent}
             />
           </div>
           <div className='content'>
             <Routes>
               <Route
                 path='/post/:username/:slug'
-                element={<Top handleTagClick={handleTagClick} />}
+                element={<Top setPostContent={setPostContent} handleTagClick={handleTagClick} />}
               />
               <Route
                 path='/'

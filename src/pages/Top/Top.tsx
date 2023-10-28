@@ -6,10 +6,10 @@ import { PostContent } from '../../types/types';
 import { useQuery } from 'react-query';
 import { fetchPost } from '../../api';
 import { useParams } from 'react-router-dom';
-import { Box, CircularProgress } from '@mui/material';
 import { LoadingSpinner } from '../../components/Loading';
 
 interface props {
+  setPostContent: (a: string) => void;
   handleTagClick: (a: string) => void;
 }
 
@@ -26,6 +26,7 @@ export const Top = (props: props) => {
       fetchPost({
         username: username ? username : '',
         slug: slug ? slug : '',
+        setPostContent: props.setPostContent,
       }),
     {
       refetchOnWindowFocus: false, // Disable automatic refetch on window focus
