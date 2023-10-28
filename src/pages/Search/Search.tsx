@@ -59,19 +59,24 @@ export const Search = (props: GlobalProps) => {
             <Tab label='Ideas' />
           </Tabs>
         </Box>
+
         <div className='content-card-list'>
           {props.keyword && <h2 style={{ margin: 0 }}>Search Results for: {props.keyword}</h2>}
           <div className='search-result'>
-            {props.tagId && !isTagLoading && tagData && <TagButton disable {...tagData} />}
-            <div className='grid-system'>
-              {isLoading ? (
-                <LoadingSpinner />
-              ) : allPosts && allPosts?.length > 0 ? (
-                allPosts.map((PostCard) => <ContentCard {...PostCard} key={PostCard.post_id} />)
-              ) : (
-                <h1>There is no centents to show.</h1>
-              )}
-            </div>
+            {isLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <>
+                {props.tagId && !isTagLoading && tagData && <TagButton disable {...tagData} />}
+                <div className='grid-system'>
+                  {allPosts && allPosts?.length > 0 ? (
+                    allPosts.map((PostCard) => <ContentCard {...PostCard} key={PostCard.post_id} />)
+                  ) : (
+                    <h1>There is no centents to show.</h1>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
