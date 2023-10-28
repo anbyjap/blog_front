@@ -1,19 +1,23 @@
-export interface Post {
-  username: string;
+export interface PostCard {
   post_id: string;
-  user_id: string;
   title: string;
-  description: string;
-  summary: string;
-  content: string;
   is_published: string;
   slug: string;
-  like: string;
-  dislike: string;
+  title: string;
+  username: string;
   created_at: string;
   updated_at: string;
   published_at: string;
-  tag_urls: Tag[];
+  category: string;
+}
+
+export interface PostContent {
+  title: string;
+  content: string;
+  created_at: string;
+  username: string;
+  title: str | None = None;
+  tag_urls: List[TagURL] | None = None;
 }
 
 export interface GlobalProps {
@@ -23,7 +27,7 @@ export interface GlobalProps {
   setTabIndex: (a: number) => void;
   tagId: string | undefined;
   setTagId: (a?: string) => void;
-  setCurrentPost: (a?: Post) => void;
+  setCurrentPost?: (a?: PostCard) => void;
 }
 
 export interface Tag {
@@ -33,6 +37,11 @@ export interface Tag {
 }
 
 export interface fetchPostValues {
+  username: string;
+  slug: string;
+}
+
+export interface fetchAllPostsValues {
   keyword?: string;
   tagId?: string;
   tabIndex?: number;

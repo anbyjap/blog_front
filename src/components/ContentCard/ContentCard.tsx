@@ -4,7 +4,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import { BiTimeFive } from 'react-icons/bi';
 import { FaUserAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { Post } from '../../types/types';
+import { PostCard } from '../../types/types';
 
 function daysAgo(date: Date | string): string {
   const now = new Date();
@@ -21,11 +21,7 @@ function daysAgo(date: Date | string): string {
   }
 }
 
-interface props extends Post {
-  setCurrentPost: (a: Post) => void;
-}
-
-export const ContentCard = (props: props) => {
+export const ContentCard = (props: PostCard) => {
   const navigate = useNavigate();
 
   return (
@@ -40,9 +36,7 @@ export const ContentCard = (props: props) => {
       <ButtonBase
         style={{ width: '100%' }}
         onClick={() => {
-          navigate('/top');
-          const { setCurrentPost, ...rest } = props;
-          props.setCurrentPost({ ...rest });
+          navigate(`/post/${props.username}/${props.slug}`);
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', fontSize: 30, padding: 30 }}>😄</div>

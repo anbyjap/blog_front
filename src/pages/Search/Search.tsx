@@ -3,9 +3,10 @@ import { useQuery } from 'react-query';
 import { Box, Tabs, Tab } from '@mui/material';
 import './Search.scss';
 import { ContentCard } from '../../components/ContentCard/ContentCard';
-import { GlobalProps, Post, Tag } from '../../types/types';
+import { GlobalProps, PostCard, Tag } from '../../types/types';
 import { TagButton } from '../../components/TagButton/TagButton';
 import { fetchAllPost, fetchAllTags } from '../../api';
+import { LoadingSpinner } from '../../components/Loading';
 
 const categoryList = ['tech', 'idea'];
 
@@ -14,7 +15,7 @@ export const Search = (props: GlobalProps) => {
     isLoading,
     error,
     data: allPosts,
-  } = useQuery<Post[]>(
+  } = useQuery<PostCard[]>(
     ['allPosts', props.tabIndex, props.keyword, props.tagId],
     () =>
       fetchAllPost({
@@ -64,11 +65,9 @@ export const Search = (props: GlobalProps) => {
             {props.tagId && !isTagLoading && tagData && <TagButton disable {...tagData} />}
             <div className='grid-system'>
               {isLoading ? (
-                <h1>Loading....</h1>
+                <LoadingSpinner />
               ) : allPosts && allPosts?.length > 0 ? (
-                allPosts.map((post) => (
-                  <ContentCard {...post} key={post.post_id} setCurrentPost={props.setCurrentPost} />
-                ))
+                allPosts.map((PostCard) => <ContentCard {...PostCard} key={PostCard.post_id} />)
               ) : (
                 <h1>There is no centents to show.</h1>
               )}

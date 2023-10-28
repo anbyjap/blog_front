@@ -3,10 +3,9 @@ import { Box } from '@mui/system';
 import './BlogContent.scss';
 import ReactMarkdown from 'react-markdown';
 import { TagButton } from '../TagButton/TagButton';
-import { Post } from '../../types/types';
+import { PostContent } from '../../types/types';
 
-interface props {
-  currentPost: Post;
+interface props extends PostContent {
   handleTagClick: (value: string) => void;
 }
 
@@ -22,7 +21,7 @@ export const BlogContent = (props: props) => {
     <Box className='blog-content-wrapper'>
       <div className='blog-main'>
         <Box className='taglist'>
-          {props.currentPost.tag_urls?.map((tag) => (
+          {props.tag_urls?.map((tag) => (
             <TagButton key={tag.tag_id} {...tag} handleTagClick={props.handleTagClick} />
           ))}
         </Box>
@@ -31,20 +30,24 @@ export const BlogContent = (props: props) => {
             h1: ({ children }) => <h1 id={children[0]?.toString()}>{children[0]}</h1>,
           }}
         >
-          {props.currentPost.content}
+          {props.content}
         </ReactMarkdown>
       </div>
       <Box className='title-list'>
-        {props.currentPost.content
+        {props.content
           .split('\n')
           .filter((line) => line.startsWith('#'))
-          .map((title, index) => (
-            <li key={index}>
-              <a href={`/top#${title.replace('# ', '')}`}>
-                {makeTitleShoter(title.replace('# ', ''))}
-              </a>
-            </li>
-          ))}
+          .map((title, index) => {
+            // Create a new URL based on the current location
+            const currentUrl = new URL(window.location.href);
+            // Modify the hash part of the URL
+            currentUrl.hash = title.replace('# ', '');
+            return (
+              <li key={index}>
+                <a href={currentUrl.href}>{makeTitleShoter(title.replace('# ', ''))}</a>
+              </li>
+            );
+          })}
       </Box>
     </Box>
   );
