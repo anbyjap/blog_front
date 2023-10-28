@@ -1,7 +1,10 @@
 import { Post, Tag, fetchPostValues, fetchTagsValues } from './types/types';
 
+const API_URL = import.meta.env.VITE_API_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 export const fetchAllPost = (vals: fetchPostValues) => {
-  let url = `${vals.apiURL}/posts/?`;
+  let url = `${API_URL}/posts/?`;
 
   if (vals.keyword) {
     url = `${url}keyword=${vals.keyword}`;
@@ -11,12 +14,15 @@ export const fetchAllPost = (vals: fetchPostValues) => {
     url = `${url}category=${vals.categoryList[vals.tabIndex ? vals.tabIndex : 0]}`;
   }
 
-  return fetch(url)
+  return fetch(url, { method: 'GET', headers: { 'X-API-KEY': API_KEY } })
     .then((res) => res.json())
     .then((data: Post[]) => data);
 };
 
 export const fetchAllTags = (vals: fetchTagsValues) =>
-  fetch(`${vals.apiURL}/tags/${vals.tagId}`)
+  fetch(`${API_URL}/tags/${vals.tagId}`, {
+    method: 'GET',
+    headers: { 'X-API-KEY': API_KEY },
+  })
     .then((res) => res.json())
     .then((data: Tag) => data);

@@ -33,7 +33,6 @@ export interface Tag {
 }
 
 export interface fetchPostValues {
-  apiURL: string;
   keyword?: string;
   tagId?: string;
   tabIndex?: number;
@@ -41,6 +40,5 @@ export interface fetchPostValues {
 }
 
 export interface fetchTagsValues {
-  apiURL: string;
   tagId?: string;
 }

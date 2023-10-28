@@ -10,8 +10,6 @@ import { fetchAllPost, fetchAllTags } from '../../api';
 const categoryList = ['tech', 'idea'];
 
 export const Search = (props: GlobalProps) => {
-  const apiURL = import.meta.env.VITE_API_URL;
-
   const {
     isLoading,
     error,
@@ -20,7 +18,6 @@ export const Search = (props: GlobalProps) => {
     ['allPosts', props.tabIndex, props.keyword, props.tagId],
     () =>
       fetchAllPost({
-        apiURL,
         keyword: props.keyword,
         tagId: props.tagId,
         tabIndex: props.tabIndex,
@@ -35,7 +32,7 @@ export const Search = (props: GlobalProps) => {
     isLoading: isTagLoading,
     error: tagError,
     data: tagData,
-  } = useQuery<Tag>(['tag', props.tagId], () => fetchAllTags({ apiURL, tagId: props.tagId }), {
+  } = useQuery<Tag>(['tag', props.tagId], () => fetchAllTags({ tagId: props.tagId }), {
     refetchOnWindowFocus: false, // Disable automatic refetch on window focus
   });
 
