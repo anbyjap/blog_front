@@ -61,8 +61,8 @@ export const Search = (props: GlobalProps) => {
         </Box>
 
         <div className='content-card-list'>
-          {props.keyword && <h2 style={{ margin: 0 }}>Search Results for: {props.keyword}</h2>}
           <div className='search-result'>
+            {props.keyword && <h2 style={{ margin: 0 }}>Search Results for: {props.keyword}</h2>}
             {isLoading ? (
               <LoadingSpinner />
             ) : (

@@ -31,7 +31,7 @@ export const ContentCard = (props: PostCard) => {
           boxShadow: 20, // theme.shadows[20]
         },
       }}
-      style={{ display: 'flex', width: 400, height: 190 }}
+      style={{ display: 'flex', minWidth: '100%', minHeight: 190 }}
     >
       <ButtonBase
         style={{ width: '100%' }}
