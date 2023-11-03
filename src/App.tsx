@@ -7,6 +7,7 @@ import { SearchAppBar } from './components/Header/Header';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Footer from './components/Footer/Footer';
 import { AppProvider } from './AppContext';
+import { Editor } from './pages/Editor/Editor';
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ export const App = () => (
             <Routes>
               <Route path='/post/:username/:slug' element={<Top />} />
               <Route path='/' element={<Search />} />
+              <Route path='/editor' element={<Editor />} />
             </Routes>
             <div className='footer'>
               <Footer />

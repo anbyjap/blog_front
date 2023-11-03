@@ -60,3 +60,11 @@ export const fetchAllTags = (vals: fetchTagsValues) =>
   })
     .then((res) => res.json())
     .then((data: Tag) => data);
+
+export const fetchAllMasterTags = () =>
+  fetch(`${API_URL}/tags/`, {
+    method: 'GET',
+    headers: { 'X-API-KEY': API_KEY },
+  })
+    .then((res) => res.json())
+    .then((data: Tag[]) => data);
