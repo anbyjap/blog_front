@@ -7,14 +7,12 @@ import { useQuery } from 'react-query';
 import { fetchPost } from '../../api';
 import { useParams } from 'react-router-dom';
 import { LoadingSpinner } from '../../components/Loading';
+import { useAppContext } from '../../AppContext';
 
-interface props {
-  setPostContent: (a: string) => void;
-  handleTagClick: (a: string) => void;
-}
-
-export const Top = (props: props) => {
+export const Top = () => {
   const { username, slug } = useParams(); // Access path parameters
+
+  const { setPostContent } = useAppContext();
 
   const {
     isLoading,
@@ -26,7 +24,7 @@ export const Top = (props: props) => {
       fetchPost({
         username: username ? username : '',
         slug: slug ? slug : '',
-        setPostContent: props.setPostContent,
+        setPostContent: setPostContent,
       }),
     {
       refetchOnWindowFocus: false, // Disable automatic refetch on window focus
@@ -43,7 +41,7 @@ export const Top = (props: props) => {
               <ContentTitleCard username={postContentData.username} title={postContentData.title} />
             </div>
             <div>
-              <BlogContent {...postContentData} handleTagClick={props.handleTagClick} />
+              <BlogContent {...postContentData} />
             </div>
           </>
         )

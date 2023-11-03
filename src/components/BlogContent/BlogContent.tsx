@@ -7,18 +7,17 @@ import { PostContent } from '../../types/types';
 import { TitleList } from '../TitleList';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useAppContext } from '../../AppContext';
 
-interface props extends PostContent {
-  handleTagClick: (value: string) => void;
-}
+export const BlogContent = (props: PostContent) => {
+  const { handleTagClick } = useAppContext();
 
-export const BlogContent = (props: props) => {
   return (
     <Box className='blog-content-wrapper'>
       <div className='blog-main'>
         <Box className='taglist'>
           {props.tag_urls?.map((tag) => (
-            <TagButton key={tag.tag_id} {...tag} handleTagClick={props.handleTagClick} />
+            <TagButton key={tag.tag_id} {...tag} handleTagClick={handleTagClick} />
           ))}
         </Box>
         <ReactMarkdown

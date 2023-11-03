@@ -5,66 +5,30 @@ import './App.scss';
 import { Search } from './pages/Search/Search';
 import { SearchAppBar } from './components/Header/Header';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useState } from 'react';
 import Footer from './components/Footer/Footer';
+import { AppProvider } from './AppContext';
 
 const queryClient = new QueryClient();
 
-export const App = () => {
-  const [keyword, setKeyword] = useState<string>();
-  const [tabIndex, setTabIndex] = useState<number>(0);
-  const [tagId, setTagId] = useState<string>();
-
-  const [postContent, setPostContent] = useState<string>();
-
-  const handleTagClick = (tagId: string) => {
-    console.log(tagId);
-    setKeyword(undefined);
-    setTabIndex(-1);
-    setTagId(tagId);
-  };
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+export const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <AppProvider>
         <div className='app-container'>
           <div className='header'>
-            <SearchAppBar
-              keyword={keyword}
-              setKeyword={setKeyword}
-              tabIndex={tabIndex}
-              setTabIndex={setTabIndex}
-              tagId={tagId}
-              setTagId={setTagId}
-              postContent={postContent}
-            />
+            <SearchAppBar />
           </div>
           <div className='content'>
             <Routes>
-              <Route
-                path='/post/:username/:slug'
-                element={<Top setPostContent={setPostContent} handleTagClick={handleTagClick} />}
-              />
-              <Route
-                path='/'
-                element={
-                  <Search
-                    keyword={keyword}
-                    setKeyword={setKeyword}
-                    tabIndex={tabIndex}
-                    setTabIndex={setTabIndex}
-                    tagId={tagId}
-                    setTagId={setTagId}
-                  />
-                }
-              />
+              <Route path='/post/:username/:slug' element={<Top />} />
+              <Route path='/' element={<Search />} />
             </Routes>
             <div className='footer'>
               <Footer />
             </div>
           </div>
         </div>
-      </BrowserRouter>
-    </QueryClientProvider>
-  );
-};
+      </AppProvider>
+    </BrowserRouter>
+  </QueryClientProvider>
+);
