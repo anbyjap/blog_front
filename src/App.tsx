@@ -6,6 +6,7 @@ import { Search } from './pages/Search/Search';
 import { SearchAppBar } from './components/Header/Header';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
+import Footer from './components/Footer/Footer';
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,9 @@ export const App = () => {
                 }
               />
             </Routes>
+            <div className='footer'>
+              <Footer />
+            </div>
           </div>
         </div>
       </BrowserRouter>

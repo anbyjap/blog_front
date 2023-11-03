@@ -9,11 +9,11 @@ body {
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100svh; /* Set the container to full viewport height */
+  max-height: 100svh; /* Set the container to full viewport height */
 }
 
 .header {
-  flex: 0; /* Header won't grow, stays fixed */
+  flex: 0 1 auto; /* Header won't grow, stays fixed */
   background-color: #fff; /* Adjust background color as needed */
   /* Add other header styles */
 }
@@ -22,4 +22,8 @@ body {
   flex: 1; /* Content area grows to fill remaining space */
   overflow-y: auto; /* Add scroll if content overflows */
   /* Add other content styles */
+  .footer {
+    flex: 0 1 auto; /* Content area grows to fill remaining space */
+    /* Add other content styles */
+  }
 }

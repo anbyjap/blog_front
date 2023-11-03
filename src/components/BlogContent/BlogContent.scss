@@ -1,7 +1,7 @@
 @import '../../scss/_color';
 
 .blog-content-wrapper {
-  margin-top: 30px;
+  margin: 30px 0;
   display: flex;
   .blog-main {
     width: 80%;
@@ -13,6 +13,9 @@
     .markdown-content {
       white-space: pre-wrap; /* Preserve white spaces and allow text wrapping */
       word-break: break-word; /* Break words to prevent overflow */
+      .markdown-content h1 {
+        text-decoration: underline;
+      }
     }
   }
   padding: 0 30px;
