@@ -1,6 +1,7 @@
 import {
   PostCard,
   PostContent,
+  PostCreate,
   Tag,
   fetchAllPostsValues,
   fetchPostValues,
@@ -68,3 +69,13 @@ export const fetchAllMasterTags = () =>
   })
     .then((res) => res.json())
     .then((data: Tag[]) => data);
+
+export const postBlog = (data: PostCreate) => {
+  const { userId, ...rest } = data;
+
+  return fetch(`${API_URL}/post/${userId}`, {
+    method: 'POST',
+    headers: { 'X-API-KEY': API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...rest }), // body data type must match
+  }).then((res) => res.json());
+};

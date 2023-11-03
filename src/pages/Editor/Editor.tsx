@@ -17,13 +17,15 @@ import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 // import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
-import { Tag } from '../../types/types';
-import { fetchAllMasterTags } from '../../api';
+import { QueryClient, useMutation, useQuery } from 'react-query';
+import { PostCreate, Tag } from '../../types/types';
+import { fetchAllMasterTags, postBlog } from '../../api';
 import { LoadingSpinner } from '../../components/Loading';
 
 export const Editor = () => {
-  const [value, setValue] = useState();
+  const [title, setTitle] = useState<string>();
+  const [category, setCategory] = useState('tech');
+  const [content, setContent] = useState<string>();
   const [selectedTags, setSelectedTags] = useState([]);
   const {
     isLoading,
@@ -33,7 +35,7 @@ export const Editor = () => {
     refetchOnWindowFocus: false, // Disable automatic refetch on window focus
   });
 
-  const { mutate, isLoading: isPostDone } = useMutation(, {
+  const { mutate, isLoading: isPostDone } = useMutation(postBlog, {
     onSuccess: (data) => {
       console.log(data);
       const message = 'success';
@@ -42,20 +44,42 @@ export const Editor = () => {
     onError: () => {
       alert('there was an error');
     },
-    onSettled: () => {
-      queryClient.invalidateQueries('create');
-    },
+    // onSettled: () => {
+    //   QueryClient.invalidateQueries('create');
+    // },
   });
+
+  const onSubmit = () => {
+    if (title && content && category && selectedTags.length > 0) {
+      const slug = title.replaceAll(' ', '-');
+      const postContent: PostCreate = {
+        userId: 'aaa',
+        title,
+        content,
+        category,
+        tags: selectedTags,
+        slug,
+      };
+      mutate(postContent);
+    }
+  };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <FormControl style={{ height: '80svh', width: '90%', padding: '30px 0' }}>
         <FormLabel id='Title'>Title</FormLabel>
-        <TextField required id='outlined-required' />
+        <TextField
+          required
+          id='outlined-required'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <FormLabel id='demo-radio-buttons-group-label'>Category</FormLabel>
         <RadioGroup
           aria-labelledby='demo-radio-buttons-group-label'
           defaultValue='tech'
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
           name='radio-buttons-group'
           sx={{ display: 'flex', flexDirection: 'row' }}
         >
@@ -80,9 +104,9 @@ export const Editor = () => {
             ))
           )}
         </Select>
-        <MDEditor height='90%' value={value} onChange={setValue} data-color-mode='light' />
+        <MDEditor height='90%' value={content} onChange={setContent} data-color-mode='light' />
         <div style={{ display: 'flex', justifyContent: 'end' }}>
-          <Button size='large' variant='contained'>
+          <Button onClick={onSubmit} size='large' variant='contained'>
             Submit
           </Button>
         </div>

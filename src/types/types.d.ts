@@ -53,3 +53,12 @@ export interface fetchAllPostsValues {
 export interface fetchTagsValues {
   tagId?: string;
 }
+
+export interface PostCreate {
+  userId: string;
+  title: string;
+  content: string;
+  tags: string[];
+  category: string;
+  slug: string;
+}
