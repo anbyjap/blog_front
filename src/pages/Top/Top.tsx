@@ -38,7 +38,12 @@ export const Top = () => {
         postContentData && (
           <>
             <div className='title-content-card'>
-              <ContentTitleCard username={postContentData.username} title={postContentData.title} />
+              <ContentTitleCard
+                created_at={postContentData.created_at}
+                emoji={postContentData.emoji}
+                username={postContentData.username}
+                title={postContentData.title}
+              />
             </div>
             <div>
               <BlogContent {...postContentData} />

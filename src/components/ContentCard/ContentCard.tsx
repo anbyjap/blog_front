@@ -39,7 +39,9 @@ export const ContentCard = (props: PostCard) => {
           navigate(`/post/${props.username}/${props.slug}`);
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', fontSize: 30, padding: 30 }}>😄</div>
+        <div style={{ display: 'flex', alignItems: 'center', fontSize: 30, padding: 30 }}>
+          {props.emoji}
+        </div>
         <div
           style={{
             overflowWrap: 'break-word',

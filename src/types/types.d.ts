@@ -1,5 +1,6 @@
 export interface PostCard {
   post_id: string;
+  emoji: string;
   title: string;
   is_published: string;
   slug: string;
@@ -12,6 +13,7 @@ export interface PostCard {
 }
 
 export interface PostContent {
+  emoji: string;
   title: string;
   content: string;
   created_at: string;
@@ -55,10 +57,12 @@ export interface fetchTagsValues {
 }
 
 export interface PostCreate {
+  emoji: string;
   userId: string;
   title: string;
   content: string;
   tags: string[];
   category: string;
   slug: string;
+  emoji: string;
 }
