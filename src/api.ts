@@ -1,4 +1,5 @@
 import {
+  LoginFormData,
   PostCard,
   PostContent,
   PostCreate,
@@ -78,4 +79,22 @@ export const postBlog = (data: PostCreate) => {
     headers: { 'X-API-KEY': API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify({ ...rest }), // body data type must match
   }).then((res) => res.json());
+};
+
+export const login = async (data: LoginFormData) => {
+  const formData = new FormData();
+  formData.append('username', data.username);
+  formData.append('password', data.password);
+
+  const response = await fetch(`${API_URL}/login`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.detail || 'An error occurred during login');
+  }
+
+  return response.json();
 };

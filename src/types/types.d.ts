@@ -66,3 +66,8 @@ export interface PostCreate {
   slug: string;
   emoji: string;
 }
+
+export interface LoginFormData {
+  username: string;
+  password: string;
+}

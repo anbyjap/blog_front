@@ -10,6 +10,7 @@ import { ReactComponent as YennLogo } from '@/images/Yenn.svg';
 import YennLogoSmall from '@/images/YennIcon.png';
 import FullScreenDialog from '../TitleModalButton/FullScreenModal';
 import { useAppContext } from '../../AppContext';
+import { FaUser } from 'react-icons/fa';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,7 +62,8 @@ export const SearchAppBar = () => {
   const navigate = useNavigate();
 
   const [searchInput, setSearchInput] = useState<string>();
-  const { postContent, setTabIndex, setKeyword, setPostContent, setTagId } = useAppContext();
+  const { isLoggedIn, postContent, setTabIndex, setKeyword, setPostContent, setTagId } =
+    useAppContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
@@ -109,6 +111,25 @@ export const SearchAppBar = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          {isLoggedIn ? (
+            <Button
+              onClick={() => navigate('/editor')}
+              sx={{ height: 60, width: 60, margin: 'auto 0', borderRadius: '50%' }}
+              size='small'
+              variant='contained'
+            >
+              <FaUser />
+            </Button>
+          ) : (
+            <Button
+              onClick={() => navigate('/login')}
+              sx={{ height: '60%', margin: 'auto 0' }}
+              size='small'
+              variant='contained'
+            >
+              {'Login'}
+            </Button>
+          )}
           {postContent && (
             <div className='titleButton'>
               <FullScreenDialog postContent={postContent} />

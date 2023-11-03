@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import Footer from './components/Footer/Footer';
 import { AppProvider } from './AppContext';
 import { Editor } from './pages/Editor/Editor';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { Login } from './pages/Login/Login';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +25,15 @@ export const App = () => (
             <Routes>
               <Route path='/post/:username/:slug' element={<Top />} />
               <Route path='/' element={<Search />} />
-              <Route path='/editor' element={<Editor />} />
+              <Route path='/login' element={<Login />} />
+              <Route
+                path='/editor'
+                element={
+                  <ProtectedRoute>
+                    <Editor />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
             <div className='footer'>
               <Footer />

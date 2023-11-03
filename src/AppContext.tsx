@@ -12,6 +12,8 @@ interface AppContextProps {
   postContent: string | undefined;
   setPostContent: React.Dispatch<React.SetStateAction<string | undefined>>;
   handleTagClick: (tagId: string) => void;
+  isLoggedIn: boolean;
+  setIsLoggedIn: (a: boolean) => void;
 }
 
 // Providing a default value matching the shape of the interface
@@ -25,6 +27,8 @@ const defaultContextValue: AppContextProps = {
   postContent: undefined,
   setPostContent: () => {},
   handleTagClick: () => {},
+  isLoggedIn: false,
+  setIsLoggedIn: () => {},
 };
 
 export const useAppContext = (): AppContextProps => {
@@ -44,6 +48,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [tagId, setTagId] = useState<string | undefined>();
   const [postContent, setPostContent] = useState<string | undefined>();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const handleTagClick = (tagId: string) => {
     console.log(tagId);
@@ -62,6 +67,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     postContent,
     setPostContent,
     handleTagClick,
+    isLoggedIn,
+    setIsLoggedIn,
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
