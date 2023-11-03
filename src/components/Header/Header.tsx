@@ -7,6 +7,7 @@ import './Header.scss';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { ReactComponent as YennLogo } from '@/images/Yenn.svg';
+import YennLogoSmall from '@/images/YennIcon.png';
 import FullScreenDialog from '../TitleModalButton/FullScreenModal';
 import { useAppContext } from '../../AppContext';
 
@@ -93,7 +94,8 @@ export const SearchAppBar = () => {
               navigate('/');
             }}
           >
-            <YennLogo height='20px' style={{ margin: 'auto 0' }} />
+            <YennLogo height='20px' className='logo-big' style={{ margin: 'auto 0' }} />
+            <img src={YennLogoSmall} className='logo-small' />
           </Button>
           <Search>
             <SearchIconWrapper>

@@ -9,9 +9,29 @@
   display: none;
 }
 
+.logo-big {
+  display: block;
+  height: 20px;
+  margin: auto 0;
+}
+
+.logo-small {
+  display: none;
+}
+
 @media (max-width: 841px) {
   .titleButton {
     display: block;
     margin: auto 10px;
+  }
+
+  .logo-big {
+    display: none;
+  }
+
+  .logo-small {
+    display: block;
+    height: 30px;
+    margin: auto 0;
   }
 }
