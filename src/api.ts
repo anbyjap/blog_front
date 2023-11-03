@@ -71,14 +71,24 @@ export const fetchAllMasterTags = () =>
     .then((res) => res.json())
     .then((data: Tag[]) => data);
 
-export const postBlog = (data: PostCreate) => {
-  const { userId, ...rest } = data;
-
-  return fetch(`${API_URL}/post/${userId}`, {
+export const postBlog = async (data: PostCreate) => {
+  const { token, ...rest } = data;
+  const response = await fetch(`${API_URL}/post/`, {
     method: 'POST',
-    headers: { 'X-API-KEY': API_KEY, 'Content-Type': 'application/json' },
+    headers: {
+      'X-API-KEY': API_KEY,
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`, // Include the bearer token here
+    },
     body: JSON.stringify({ ...rest }), // body data type must match
-  }).then((res) => res.json());
+  });
+
+  if (!response.ok) {
+    const errorData = response.json();
+    throw new Error(errorData.detail || 'An error occurred during post');
+  }
+
+  return response.json();
 };
 
 export const login = async (data: LoginFormData) => {

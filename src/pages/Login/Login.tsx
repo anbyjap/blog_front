@@ -15,11 +15,15 @@ import { useMutation } from 'react-query';
 import { login } from '../../api';
 import { LoginFormData } from '../../types/types';
 import { useAppContext } from '../../AppContext';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 export const Login = () => {
   const { setIsLoggedIn } = useAppContext();
+  const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(['yenn_token']);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -34,9 +38,9 @@ export const Login = () => {
   const { mutate, isLoading: isLoginDone } = useMutation(login, {
     onSuccess: (data) => {
       console.log(data);
+      setCookie('yenn_token', data.access_token);
       setIsLoggedIn(true);
-      const message = 'success';
-      alert(message);
+      navigate('/');
     },
     onError: (e) => {
       console.log(e);

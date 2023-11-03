@@ -57,8 +57,8 @@ export interface fetchTagsValues {
 }
 
 export interface PostCreate {
+  token: string;
   emoji: string;
-  userId: string;
   title: string;
   content: string;
   tags: string[];

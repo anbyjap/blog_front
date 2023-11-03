@@ -15,10 +15,11 @@ import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 // import dynamic from 'next/dynamic';
 import { SyntheticEvent, useState } from 'react';
-import { QueryClient, useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { PostCreate, Tag } from '../../types/types';
 import { fetchAllMasterTags, postBlog } from '../../api';
 import { LoadingSpinner } from '../../components/Loading';
+import { useCookies } from 'react-cookie';
 
 export const Editor = () => {
   const [emoji, setEmoji] = useState<string>();
@@ -26,6 +27,8 @@ export const Editor = () => {
   const [category, setCategory] = useState('tech');
   const [content, setContent] = useState<string>();
   const [selectedTags, setSelectedTags] = useState([]);
+  const [cookies] = useCookies(['yenn_token']);
+
   const {
     isLoading,
     error,
@@ -50,10 +53,11 @@ export const Editor = () => {
 
   const onSubmit = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
-    if (title && content && category && selectedTags.length > 0 && emoji) {
+    if (title && content && category && selectedTags.length > 0 && emoji && cookies.yenn_token) {
       const slug = title.replaceAll(' ', '-');
+      // TODO : do not use token on body just params
       const postContent: PostCreate = {
-        userId: 'aaa',
+        token: cookies.yenn_token,
         title,
         content,
         category,
