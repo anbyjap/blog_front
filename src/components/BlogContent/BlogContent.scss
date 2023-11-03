@@ -10,6 +10,24 @@
     }
     text-wrap: wrap;
 
+    .taglist {
+      display: flex; // This will lay out the children (tags) in a row
+      flex-wrap: nowrap; // Prevents the tags from wrapping to a new line
+      overflow-x: auto; // Allows for horizontal scrolling when content overflows
+      // You may want to add padding and ensure the scrollbar doesn't cover the content
+      padding-bottom: 10px; // Adjust as necessary to avoid content being obscured by scrollbar
+      // Styles to hide the scrollbar for different browsers
+      &::-webkit-scrollbar {
+        display: none; // Hide scrollbar for Chrome, Safari, and Opera
+      }
+
+      -ms-overflow-style: none; // Hide scrollbar for IE and Edge
+      scrollbar-width: none; // Hide scrollbar for Firefox
+      .tag {
+        margin: 0 20px;
+      }
+    }
+
     .markdown-content {
       white-space: pre-wrap; /* Preserve white spaces and allow text wrapping */
       word-break: break-word; /* Break words to prevent overflow */

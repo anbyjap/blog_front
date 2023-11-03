@@ -14,7 +14,7 @@ export const TagButton = (props: TagProps) => {
     <Button
       key={props.tag_name}
       className='tag'
-      startIcon={<img alt={props.tag_name} src={props.url} style={{ width: 30, height: 30 }} />}
+      startIcon={<img alt={props.tag_name} src={props.url} style={{ width: 25, height: 25 }} />}
       onClick={() => {
         props.handleTagClick && props.handleTagClick(props.tag_id);
         navigation('/');
