@@ -80,9 +80,9 @@ export const postBlog = async (data: PostCreate) => {
     headers: {
       'X-API-KEY': API_KEY,
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`, // Include the bearer token here
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ ...rest }), // body data type must match
+    body: JSON.stringify({ ...rest }),
   });
 
   if (!response.ok) {
@@ -117,12 +117,33 @@ export const validateToken = async (token: string) => {
       headers: {
         'X-API-KEY': API_KEY,
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the bearer token here
+        Authorization: `Bearer ${token}`,
       },
     });
-    return response.json(); // Assuming the backend returns a JSON object with a boolean isValid field
+    return response.json();
   } catch (error) {
-    // Handle errors, for example, logging out the user or refreshing the token
     return false;
   }
+};
+
+interface deleteProps {
+  postId: string;
+  token: string;
+}
+
+export const deletePost = async (vals: deleteProps) => {
+  const response = await fetch(`${API_URL}/posts/${vals.postId}`, {
+    method: 'DELETE',
+    headers: {
+      'X-API-KEY': API_KEY,
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${vals.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error: ${response.statusText}`);
+  }
+
+  return await response.json();
 };

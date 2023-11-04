@@ -10,19 +10,21 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { PostCard } from '../../types/types';
-import { fetchAllPosts } from '../../api';
+import { deletePost, fetchAllPosts } from '../../api';
 import { useCookies } from 'react-cookie';
 import { LoadingSpinner } from '../../components/Loading';
 
 export const Dashboard = () => {
-  const [cookies] = useCookies(['yenn_user_id']);
+  const [cookies] = useCookies(['yenn_user_id', 'yenn_token']);
+  const token = cookies.yenn_token;
   // Dummy data array to simulate posts
   const {
     isLoading,
     error,
     data: allPosts,
+    refetch,
   } = useQuery<PostCard[]>(
     ['allPostOnUser'],
     () => fetchAllPosts({ userId: cookies.yenn_user_id }),
@@ -31,9 +33,28 @@ export const Dashboard = () => {
     },
   );
 
+  const {
+    mutate,
+    isLoading: isDeleteLoading,
+    error: deleteError,
+  } = useMutation(deletePost, {
+    onSuccess: () => {
+      refetch();
+    },
+    // You might want to handle the error state as well
+    onError: (error) => {
+      // Handle the error here
+      console.error('Delete failed:', error);
+      alert('delete failed');
+    },
+  });
+
   // Handlers for delete and edit would go here
-  const handleDelete = (id: string) => {
-    console.log('Delete post', id);
+  const handleDelete = (postId: string) => {
+    confirm('are you sure to delete this post?');
+    if (typeof token === 'string') {
+      mutate({ postId, token });
+    }
     // Implement delete functionality
   };
 
@@ -66,13 +87,17 @@ export const Dashboard = () => {
                   >
                     Edit
                   </Button>
-                  <Button
-                    onClick={() => handleDelete(post.post_id)}
-                    variant='contained'
-                    color='secondary'
-                  >
-                    Delete
-                  </Button>
+                  {isDeleteLoading ? (
+                    <LoadingSpinner />
+                  ) : (
+                    <Button
+                      onClick={() => handleDelete(post.post_id)}
+                      variant='contained'
+                      color='secondary'
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))
