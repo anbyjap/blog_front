@@ -11,6 +11,7 @@ import { Editor } from './pages/Editor/Editor';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Login } from './pages/Login/Login';
 import { CookiesProvider } from 'react-cookie';
+import { Dashboard } from './pages/Dashboard/Dashboard';
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,14 @@ export const App = () => (
                   element={
                     <ProtectedRoute>
                       <Editor />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path='/dashboard'
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
                     </ProtectedRoute>
                   }
                 />

@@ -49,7 +49,8 @@ export interface fetchAllPostsValues {
   keyword?: string;
   tagId?: string;
   tabIndex?: number;
-  categoryList: string[];
+  userId?: string;
+  categoryList?: string[];
 }
 
 export interface fetchTagsValues {

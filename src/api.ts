@@ -30,8 +30,10 @@ export const fetchAllPosts = (vals: fetchAllPostsValues) => {
     url = `${url}keyword=${vals.keyword}`;
   } else if (vals.tagId) {
     url = `${url}tag_id=${vals.tagId}`;
-  } else {
+  } else if (vals.categoryList) {
     url = `${url}category=${vals.categoryList[vals.tabIndex ? vals.tabIndex : 0]}`;
+  } else if (vals.userId) {
+    url = `${url}user_id=${vals.userId}`;
   }
 
   return fetch(url, { method: 'GET', headers: { 'X-API-KEY': API_KEY } })
@@ -107,4 +109,20 @@ export const login = async (data: LoginFormData) => {
   }
 
   return response.json();
+};
+
+export const validateToken = async (token: string) => {
+  try {
+    const response = await fetch(`${API_URL}/validate`, {
+      headers: {
+        'X-API-KEY': API_KEY,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, // Include the bearer token here
+      },
+    });
+    return response.json(); // Assuming the backend returns a JSON object with a boolean isValid field
+  } catch (error) {
+    // Handle errors, for example, logging out the user or refreshing the token
+    return false;
+  }
 };

@@ -23,7 +23,7 @@ const theme = createTheme();
 export const Login = () => {
   const { setIsLoggedIn } = useAppContext();
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(['yenn_token']);
+  const [cookies, setCookie] = useCookies(['yenn_token', 'yenn_user_id']);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,8 +37,9 @@ export const Login = () => {
 
   const { mutate, isLoading: isLoginDone } = useMutation(login, {
     onSuccess: (data) => {
-      console.log(data);
       setCookie('yenn_token', data.access_token);
+      console.log(data);
+      setCookie('yenn_user_id', data.user_id);
       setIsLoggedIn(true);
       navigate('/');
     },

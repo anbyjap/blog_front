@@ -113,7 +113,7 @@ export const SearchAppBar = () => {
           </Search>
           {isLoggedIn ? (
             <Button
-              onClick={() => navigate('/editor')}
+              onClick={() => navigate('/dashboard')}
               sx={{ height: 60, width: 60, margin: 'auto 0', borderRadius: '50%' }}
               size='small'
               variant='contained'
