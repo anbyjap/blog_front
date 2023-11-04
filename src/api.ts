@@ -147,3 +147,33 @@ export const deletePost = async (vals: deleteProps) => {
 
   return await response.json();
 };
+
+interface uploadProps {
+  file: File; // Assuming you're uploading a single file
+  token: string;
+}
+
+export const uploadImage = async (vals: uploadProps) => {
+  // Create an instance of FormData
+  const formData = new FormData();
+
+  // Append the file to the FormData instance
+  formData.append('file', vals.file);
+
+  // Make the POST request to the upload endpoint
+  const response = await fetch(`${API_URL}/upload_image`, {
+    method: 'POST',
+    headers: {
+      'X-API-KEY': API_KEY,
+      // 'Content-Type': 'multipart/form-data' is not needed, the browser sets it along with the boundary
+      Authorization: `Bearer ${vals.token}`,
+    },
+    body: formData, // Pass the formData as the body of the request
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error: ${response.statusText}`);
+  }
+
+  return await response.json();
+};

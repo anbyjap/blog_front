@@ -9,6 +9,14 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useAppContext } from '../../AppContext';
 
+const renderers = {
+  //This custom renderer changes how images are rendered
+  //we use it to constrain the max width of an image to its container
+  image: ({ alt, src, title }: { alt?: string; src?: string; title?: string }) => (
+    <img alt={alt} src={src} title={title} style={{ maxWidth: 475 }} />
+  ),
+};
+
 export const BlogContent = (props: PostContent) => {
   const { handleTagClick } = useAppContext();
 
@@ -39,6 +47,8 @@ export const BlogContent = (props: PostContent) => {
                 </code>
               );
             },
+            img: ({ node, ...props }) => <img style={{ maxWidth: '100%' }} {...props} />,
+
             h1: ({ children }) => <h1 id={children[0]?.toString()}>{children[0]}</h1>,
           }}
           className='markdown-content'

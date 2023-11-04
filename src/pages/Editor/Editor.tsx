@@ -14,12 +14,60 @@ import MDEditor from '@uiw/react-md-editor';
 import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 // import dynamic from 'next/dynamic';
-import { SyntheticEvent, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { SetStateAction, SyntheticEvent, useState } from 'react';
+import { UseMutateFunction, useMutation, useQuery } from 'react-query';
 import { PostCreate, Tag } from '../../types/types';
-import { fetchAllMasterTags, postBlog } from '../../api';
+import { fetchAllMasterTags, postBlog, uploadImage } from '../../api';
 import { LoadingSpinner } from '../../components/Loading';
 import { useCookies } from 'react-cookie';
+
+const insertToTextArea = (intsertString: string) => {
+  const textarea = document.querySelector('textarea');
+  if (!textarea) {
+    return null;
+  }
+
+  let sentence = textarea.value;
+  const len = sentence.length;
+  const pos = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+
+  const front = sentence.slice(0, pos);
+  const back = sentence.slice(pos, len);
+
+  sentence = front + intsertString + back;
+
+  textarea.value = sentence;
+  textarea.selectionEnd = end + intsertString.length;
+
+  return sentence;
+};
+
+interface uploadProps {
+  file: File; // Assuming you're uploading a single file
+  token: string;
+}
+
+const onImagePasted = async (
+  dataTransfer: DataTransfer,
+  token: string,
+  postimage: UseMutateFunction<any, unknown, uploadProps, unknown>,
+) => {
+  const files: File[] = [];
+  for (let index = 0; index < dataTransfer.items.length; index += 1) {
+    const file = dataTransfer.files.item(index);
+
+    if (file) {
+      files.push(file);
+    }
+  }
+
+  await Promise.all(
+    files.map(async (file) => {
+      await postimage({ file, token });
+    }),
+  );
+};
 
 export const Editor = () => {
   const [emoji, setEmoji] = useState<string>();
@@ -28,6 +76,7 @@ export const Editor = () => {
   const [content, setContent] = useState<string>();
   const [selectedTags, setSelectedTags] = useState([]);
   const [cookies] = useCookies(['yenn_token']);
+  const token = cookies.yenn_token;
 
   const {
     isLoading,
@@ -35,6 +84,27 @@ export const Editor = () => {
     data: allTags,
   } = useQuery<Tag[]>(['allTags'], fetchAllMasterTags, {
     refetchOnWindowFocus: false, // Disable automatic refetch on window focus
+  });
+
+  const {
+    mutate: postImage,
+    isLoading: isPostLoading,
+    error: imageError,
+  } = useMutation(uploadImage, {
+    onSuccess: (data) => {
+      console.log(data);
+      const insertedMarkdown = insertToTextArea(`![](${data.url})`);
+      if (!insertedMarkdown) {
+        return;
+      }
+      setContent(insertedMarkdown);
+    },
+    // You might want to handle the error state as well
+    onError: (error) => {
+      // Handle the error here
+      console.error('Delete failed:', error);
+      alert('upload failed');
+    },
   });
 
   const { mutate, isLoading: isPostDone } = useMutation(postBlog, {
@@ -120,6 +190,14 @@ export const Editor = () => {
             value={content}
             onChange={setContent}
             data-color-mode='light'
+            onPaste={async (event) => {
+              event.preventDefault();
+              await onImagePasted(event.clipboardData, token, postImage);
+            }}
+            onDrop={async (event) => {
+              event.preventDefault();
+              await onImagePasted(event.dataTransfer, token, postImage);
+            }}
           />
           <div style={{ display: 'flex', justifyContent: 'end' }}>
             <Button type='submit' size='large' variant='contained'>
