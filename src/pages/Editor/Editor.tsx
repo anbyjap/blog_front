@@ -21,6 +21,54 @@ import { fetchAllMasterTags, postBlog, uploadImage } from '../../api';
 import { LoadingSpinner } from '../../components/Loading';
 import { useCookies } from 'react-cookie';
 
+const resizeImage = (file: File, maxWidth: number, maxHeight: number): Promise<File> => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.src = URL.createObjectURL(file);
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      let { width, height } = image;
+
+      // Calculate the new dimensions
+      if (width > height) {
+        if (width > maxWidth) {
+          height *= maxWidth / width;
+          width = maxWidth;
+        }
+      } else {
+        if (height > maxHeight) {
+          width *= maxHeight / height;
+          height = maxHeight;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(image, 0, 0, width, height);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve(
+              new File([blob], file.name, {
+                type: 'image/jpeg',
+                lastModified: Date.now(),
+              }),
+            );
+          } else {
+            reject(new Error('Canvas to Blob returned null'));
+          }
+        }, 'image/jpeg');
+      } else {
+        reject(new Error('Could not get canvas context'));
+      }
+    };
+    image.onerror = (errorEvent) => {
+      reject(errorEvent);
+    };
+  });
+};
+
 const insertToTextArea = (intsertString: string) => {
   const textarea = document.querySelector('textarea');
   if (!textarea) {
@@ -52,21 +100,33 @@ const onImagePasted = async (
   dataTransfer: DataTransfer,
   token: string,
   postimage: UseMutateFunction<any, unknown, uploadProps, unknown>,
-) => {
-  const files: File[] = [];
+): Promise<void> => {
+  // This will hold all the promises returned by resizeImage function
+  const resizePromises: Promise<File>[] = [];
+
+  // Iterate through the files in the DataTransfer object
   for (let index = 0; index < dataTransfer.items.length; index += 1) {
     const file = dataTransfer.files.item(index);
-
     if (file) {
-      files.push(file);
+      // resizeImage returns a promise so we push it to our array
+      resizePromises.push(resizeImage(file, 800, 800));
     }
   }
 
-  await Promise.all(
-    files.map(async (file) => {
-      await postimage({ file, token });
-    }),
-  );
+  try {
+    // Wait for all the resizeImage promises to resolve
+    const resizedFiles = await Promise.all(resizePromises);
+
+    // Upload all the resized files
+    await Promise.all(
+      resizedFiles.map(async (file) => {
+        await postimage({ file, token });
+      }),
+    );
+  } catch (error) {
+    console.error('Error resizing or uploading files:', error);
+    // Handle the error appropriately
+  }
 };
 
 export const Editor = () => {
@@ -140,9 +200,9 @@ export const Editor = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <form onSubmit={onSubmit}>
-        <FormControl style={{ height: '80svh', width: '90%', padding: '30px 0' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <form onSubmit={onSubmit} style={{ height: '80svh', width: '80%', padding: '30px 0' }}>
+        <FormControl style={{ height: '100%', width: '100%' }}>
           <FormLabel id='Title'>Emoji</FormLabel>
           <TextField required id='emoji' value={emoji} onChange={(e) => setEmoji(e.target.value)} />
           <FormLabel id='Emoji'>Title</FormLabel>
@@ -184,21 +244,25 @@ export const Editor = () => {
               ))
             )}
           </Select>
-          <MDEditor
-            aria-required
-            height='90%'
-            value={content}
-            onChange={setContent}
-            data-color-mode='light'
-            onPaste={async (event) => {
-              event.preventDefault();
-              await onImagePasted(event.clipboardData, token, postImage);
-            }}
-            onDrop={async (event) => {
-              event.preventDefault();
-              await onImagePasted(event.dataTransfer, token, postImage);
-            }}
-          />
+          {isPostLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <MDEditor
+              aria-required
+              height='90%'
+              value={content}
+              onChange={setContent}
+              data-color-mode='light'
+              onPaste={async (event) => {
+                event.preventDefault();
+                await onImagePasted(event.clipboardData, token, postImage);
+              }}
+              onDrop={async (event) => {
+                event.preventDefault();
+                await onImagePasted(event.dataTransfer, token, postImage);
+              }}
+            />
+          )}
           <div style={{ display: 'flex', justifyContent: 'end' }}>
             <Button type='submit' size='large' variant='contained'>
               Submit
